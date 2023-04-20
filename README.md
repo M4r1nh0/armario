@@ -18,7 +18,8 @@ Em seguida, digite `pip install dataset` e pressione enter para instalar a bibli
 # Uso:
 Por enquanto, não há informações disponíveis sobre como usar o Armário.
 
-
+#arquitetura:
+<img src="">
 
 
 
