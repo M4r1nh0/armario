@@ -12,6 +12,7 @@ O Armário é uma ferramenta criada para auxiliar na organização de hackerspac
 Para usar o Armário, é necessário ter Python 3 instalado. Além disso, é preciso ter as bibliotecas Flask Restful e Dataset lib instaladas. Para instalar as bibliotecas, siga as etapas abaixo:
 
 Abra o terminal e digite `pip install Flask-RESTful` e pressione enter para instalar a biblioteca Flask Restful.
+
 Em seguida, digite `pip install dataset` e pressione enter para instalar a biblioteca Dataset lib.
 
 # Uso:
