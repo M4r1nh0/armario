@@ -6,6 +6,7 @@ Precisa ter rota /api/delete_item [tipo get]"""
 from flask import Flask, request
 from flask_restful import Resource, Api
 import dataset
+import logging
 
 db = dataset.connect('sqlite:///mydatabase.db')
 table = db['Armarios']
@@ -17,26 +18,44 @@ class Crud(Resource):
     def post(self):
         dados = request.get_json()
         nome = dados["nome"]
+        descricao = dados["dec"]
+        quant = dados["quant"]
         data = str(datetime.now())
-        table.insert(dict(name=nome, date=data))
+        table.insert(dict(name=nome, descricao=descricao, quantidade=quant, date=data))
         return {"status": "create"}
+    
     def get(self):
         ver = []
         for row in table:
             ver.append(row)
         print(ver)
         return ver
+    
     def put(self):
         dados = request.get_json()
-        print(dados)
-        id_n = dados["id"]
-        print(id)
-        user = table.find(id=id_n)
-        print(user)
-        #data = dict(id=user)
-        #table.update(data, ["id"])
-        return {"SATU":"ATU"}
+        id_rec = dados["id"]
+        nome = dados["nome"]
+        descricao = dados["dec"]
+        quant = dados["quant"]
+        data = str(datetime.now())
+        dados_dicionario = {}
+        for row in table:
+            row = dict(row)
+            if id_rec in str(row['id']):
+                dados_dicionario = dict(id=id_rec, name=nome, descricao=descricao, quantidade=quant, date=data)
+                table.update(dados_dicionario, ["id"])
+        return {"STATUS":"ATUALIZADO", "dados": dados_dicionario}
     
+    def delete(self):
+        dados = request.get_json()
+        id_rec = dados["id"]
+        dados_dicionario = {}
+        for row in table:
+            row = dict(row)
+            if id_rec in str(row['id']):
+                dados_dicionario = dict(id=row['id'], name=row['name'])
+                table.delete(id=row['id'], name=row['name'])
+        return {"Status":"Deletado", "Dados": dados_dicionario}
 
 api.add_resource(Crud, "/api/")
 
