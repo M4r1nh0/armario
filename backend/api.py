@@ -44,10 +44,11 @@ class Crud(Resource):
             if id_rec in str(row['id']):
                 dados_dicionario = dict(id=id_rec, name=nome, descricao=descricao, quantidade=quant, date=data)
                 table.update(dados_dicionario, ["id"])
-        return {"STATUS":"ATUALIZADO", "dados": dados_dicionario}
+        return {"status":"ATUALIZADO", "dados": dados_dicionario}
     
     def delete(self):
         dados = request.get_json()
+        print("#################################",dados)
         id_rec = dados["id"]
         dados_dicionario = {}
         for row in table:
@@ -55,7 +56,7 @@ class Crud(Resource):
             if id_rec in str(row['id']):
                 dados_dicionario = dict(id=row['id'], name=row['name'])
                 table.delete(id=row['id'], name=row['name'])
-        return {"Status":"Deletado", "Dados": dados_dicionario}
+        return {"status":"Deletado", "Dados": dados_dicionario}
 
 api.add_resource(Crud, "/api/")
 
