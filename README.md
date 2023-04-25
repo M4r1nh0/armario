@@ -20,7 +20,9 @@ Em seguida, digite `pip install dataset` e pressione enter para instalar a bibli
 `python app.py`
 2. Em seguida, você pode testar as funcionalidades do Armário utilizando os comandos curl abaixo:
 * Visualizar todos os objetos:
-`curl -X GET http://localhost:5000/api/`
+``` bash 
+$ curl -X GET http://localhost:5000/api/
+```
 * Adicionar um novo objeto:
 `curl -X POST -H "Content-Type: application/json" -d '{"nome":"nome","dec":"descrição", "quant":"Quantidade"}' http://localhost:5000/api/`
 * Atualizar um objeto existente:
