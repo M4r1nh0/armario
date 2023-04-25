@@ -16,7 +16,17 @@ Abra o terminal e digite `pip install Flask-RESTful` e pressione enter para inst
 Em seguida, digite `pip install dataset` e pressione enter para instalar a biblioteca Dataset lib.
 
 # Uso:
-Por enquanto, não há informações disponíveis sobre como usar o Armário.
+1. Abra o terminal e execute o seguinte comando para iniciar o servidor:
+`python app.py`
+2. Em seguida, você pode testar as funcionalidades do Armário utilizando os comandos curl abaixo:
+*Visualizar todos os objetos:
+`curl -X GET http://localhost:5000/api/`
+*Adicionar um novo objeto:
+`curl -X POST -H "Content-Type: application/json" -d '{"nome":"nome","dec":"descrição", "quant":"Quantidade"}' http://localhost:5000/api/`
+*Atualizar um objeto existente:
+`curl -X PUT -H "Content-Type: application/json" -d '{"id":"1", "nome":"nome_atualizado","dec":"descrição_atualizado", "quant":"Quantidade_atualizada"}' http://localhost:5000/api/`
+*Excluir um objeto:
+`curl -X DELETE -H "Content-Type: application/json" -d '{"id":"1"}' http://localhost:5000/api/`
 
 # arquitetura:
 <p align="center">
