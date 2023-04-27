@@ -25,11 +25,7 @@ class Crud(Resource):
         return {"status": "create"}
     
     def get(self):
-        ver = []
-        for row in table:
-            ver.append(row)
-        print(ver)
-        return ver
+        return [dict(row) for row in table]
     
     def put(self):
         dados = request.get_json()
@@ -48,7 +44,7 @@ class Crud(Resource):
     
     def delete(self):
         dados = request.get_json()
-        print("#################################",dados)
+        #print("#################################",dados)
         id_rec = dados["id"]
         dados_dicionario = {}
         for row in table:
