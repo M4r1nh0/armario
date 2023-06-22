@@ -1,0 +1,22 @@
+# Use a imagem base Python
+FROM python:3.9
+
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copie os arquivos necessários para o diretório de trabalho
+COPY pyproject.toml poetry.lock /app/
+
+# Instale as dependências
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi
+
+# Copie o código fonte para o diretório de trabalho
+COPY . /app
+
+# Exponha a porta em que a aplicação FastAPI está ouvirá (por padrão, a porta 8000)
+EXPOSE 8000
+
+# Comando para iniciar o servidor FastAPI
+CMD ["uvicorn", "teste.main:app", "--host", "0.0.0.0", "--port", "8000"]
