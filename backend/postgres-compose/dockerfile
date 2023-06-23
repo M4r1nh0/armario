@@ -1,0 +1,13 @@
+# Use a imagem base do PostgreSQL
+FROM postgres:latest
+
+# Defina variáveis de ambiente para configuração do PostgreSQL
+ENV POSTGRES_USER=admin123
+ENV POSTGRES_PASSWORD=1234
+ENV POSTGRES_DB=armario
+
+# Copie arquivos SQL para inicialização do banco de dados
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Exponha a porta padrão do PostgreSQL
+EXPOSE 5432
