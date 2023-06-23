@@ -4,9 +4,6 @@ FROM python:3.9
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copie os arquivos necessários para o diretório de trabalho
-COPY pyproject.toml poetry.lock /app/
-
 # Instale as dependências
 RUN pip install poetry && \
     poetry config virtualenvs.create false && \

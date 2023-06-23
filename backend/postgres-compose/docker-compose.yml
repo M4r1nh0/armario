@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    build: .
+    ports:
+      - "8002:5432"
+    environment:
+      - POSTGRES_USER=admin123
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=armario
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build:
+      context: .
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://admin123:1234@db:5432/armario
+    command: ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
