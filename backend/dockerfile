@@ -1,22 +1,13 @@
-# Use a imagem base Python
-FROM python:3.9
+# Use a imagem base do PostgreSQL
+FROM postgres:latest
 
-# Defina o diretório de trabalho dentro do contêiner
-WORKDIR /app
+# Defina variáveis de ambiente para configuração do PostgreSQL
+ENV POSTGRES_USER=admin123
+ENV POSTGRES_PASSWORD=1234
+ENV POSTGRES_DB=armario
 
-# Copie os arquivos necessários para o diretório de trabalho
-COPY pyproject.toml poetry.lock /app/
+# Copie arquivos SQL para inicialização do banco de dados
+COPY init.sql /docker-entrypoint-initdb.d/
 
-# Instale as dependências
-RUN pip install poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-interaction --no-ansi
-
-# Copie o código fonte para o diretório de trabalho
-COPY . /app
-
-# Exponha a porta em que a aplicação FastAPI está ouvirá (por padrão, a porta 8000)
-EXPOSE 8000
-
-# Comando para iniciar o servidor FastAPI
-CMD ["uvicorn", "teste.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Exponha a porta padrão do PostgreSQL
+EXPOSE 5432
