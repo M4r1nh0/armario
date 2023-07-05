@@ -1,0 +1,15 @@
+/* styles.css */
+body {
+    background-color: lightblue;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: darkblue;
+  }
+  
+  p {
+    color: black;
+  }
+  

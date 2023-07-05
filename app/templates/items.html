@@ -1,0 +1,15 @@
+<!-- items.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h2>Lista de Itens</h2>
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>ID:</strong> {{ item.id }},
+                <strong>Nome:</strong> {{ item.name }},
+                <strong>Descrição:</strong> {{ item.description }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

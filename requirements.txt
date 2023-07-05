@@ -4,3 +4,4 @@ uvicorn
 sqlalchemy
 psycopg2
 psycopg2-binary
+jinja2

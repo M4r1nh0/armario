@@ -1,7 +1,12 @@
+import os
+
 from http.client import HTTPException
 from typing import Union
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 from .database import SessionLocal
 from .models import ItemModel, ItemSchema
@@ -10,15 +15,28 @@ from .models import ItemModel, ItemSchema
 app = FastAPI()
 db = SessionLocal()
 
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+templates = Jinja2Templates(directory="app/templates")
+
 
 @app.get("/")
 def read_root():
-    query = db.query(ItemModel)
-    items = query.all()
-    db.close()
-    items_list = [ItemSchema.from_orm(item).dict() for item in items]
-    return items_list
+    # query = db.query(ItemModel)
+    # items = query.all()
+    # db.close()
+    # items_list = [ItemSchema.from_orm(item).dict() for item in items]
+    return "Hello World"
+    
 
+@app.get("/test")
+async def get_item(request: Request):
+    items = [
+        {"id": 1, "name": "Item 1", "description": "Descrição do Item 1"},
+        {"id": 2, "name": "Item 2", "description": "Descrição do Item 2"},
+        {"id": 3, "name": "Item 3", "description": "Descrição do Item 3"}
+    ]
+    return templates.TemplateResponse("items.html", {"request": request, "items": items})
 
 @app.post("/items")
 def create_item(name: str, description: str):
@@ -69,7 +87,7 @@ def get_items():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/items/{name}")
+"""@app.get("/items/{name}")
 def search_item_name(name: str):
     try:
         query = db.query(ItemModel)
@@ -80,4 +98,4 @@ def search_item_name(name: str):
                 return {"message": "No items matching the search criteria were found."}
             return [ItemSchema.from_orm(item).dict() for item in items]
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))"""
